@@ -1,0 +1,39 @@
+---
+# MySQL Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+spec:
+  selector:
+    matchLabels:
+      app: postgresql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - image: postgresql:15
+        name: postgresql
+        env:
+        - name: POSTGRES_PASSWORD 
+          value: "Test@123"  # Consider using a Secret for production
+        - name: POSTGRES_DB
+          value: "mydb"
+        ports:
+        - containerPort: 5432
+          name: postgresql
+---
+# MySQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: postgresql
