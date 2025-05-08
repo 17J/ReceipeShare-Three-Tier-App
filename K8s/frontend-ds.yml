@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: 17rj/three-tier-todo-frontend:latest # Replace with your React app image. Use specific tags instead of 'latest' for immutability
+          image: 17rj/receipeshare-three-tier-frontend:latest # Replace with your React app image. Use specific tags instead of 'latest' for immutability
           ports:
             - containerPort: 3000 # Default React port
           env:
