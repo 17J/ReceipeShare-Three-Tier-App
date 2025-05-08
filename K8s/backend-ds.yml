@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 3 # Adjust as needed for desired number of instances
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend-app
+          image: YOUR_DOCKER_REGISTRY/YOUR_DOTNET_BACKEND_IMAGE:YOUR_TAG # Replace with your actual Docker image
+          ports:
+            - containerPort: 80 # Or the port your .NET application listens on
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production" # Or Development/Staging as appropriate
+            - name: Database__Host
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
+                  key: host
+            - name: Database__Port
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
+                  key: port
+            - name: Database__Database
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
+                  key: database
+            - name: Database__Username
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
+                  key: username
+            - name: Database__Password
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
+                  key: password
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000 # The port the service exposes
+      targetPort: 5000 # The target port on the container
+  type: ClusterIP # Or ClusterIP if you are using an Ingress controller
