@@ -19,8 +19,8 @@ spec:
           ports:
             - containerPort: 3000 # Default React port
           env:
-            - name: REACT_APP_BACKEND_URL
-              value: "http://backend-service:8080" # Replace with actual backend service name if different
+            - name: VITE_API_URL
+              value: "http://backend-service:5000" # Replace with actual backend service name if different
           # Add resource requests/limits for production
           # resources:
           #   requests:
@@ -60,5 +60,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80 # Service port
-      targetPort: 3000 # Container port
+      targetPort: 80 # Container port
   type: LoadBalancer # For production, use LoadBalancer for external access, or Ingress for more advanced routing
