@@ -21,30 +21,15 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production" # Or Development/Staging as appropriate
             - name: Database__Host
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
-                  key: host
+              value: "postgres"
             - name: Database__Port
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
-                  key: port
+              value: "5432"
             - name: Database__Database
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
-                  key: database
+              value: "mydb"
             - name: Database__Username
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
-                  key: username
+              value: "admin"
             - name: Database__Password
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql-credentials # Replace with the name of your PostgreSQL secret
-                  key: password
+              value: "Test@123"
           # resources:
           #   limits:
           #     cpu: "1"
