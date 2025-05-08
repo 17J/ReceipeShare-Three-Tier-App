@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-app
-          image: YOUR_DOCKER_REGISTRY/YOUR_DOTNET_BACKEND_IMAGE:YOUR_TAG # Replace with your actual Docker image
+          image: 17rj/receipeshare-three-tier-backend:latest # Replace with your actual Docker image
           ports:
             - containerPort: 80 # Or the port your .NET application listens on
           env:
@@ -45,13 +45,13 @@ spec:
                 secretKeyRef:
                   name: postgresql-credentials # Replace with the name of your PostgreSQL secret
                   key: password
-          resources:
-            limits:
-              cpu: "1"
-              memory: "1Gi"
-            requests:
-              cpu: "500m"
-              memory: "512Mi"
+          # resources:
+          #   limits:
+          #     cpu: "1"
+          #     memory: "1Gi"
+          #   requests:
+          #     cpu: "500m"
+          #     memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
