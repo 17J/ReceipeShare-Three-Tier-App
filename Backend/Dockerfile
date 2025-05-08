@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
 COPY Backend/*.sln .
-COPY Backend/Share4Recipe.Api/*.csproj ./Share4Recipe.Api/
+COPY Backendi/*.csproj ./
 RUN dotnet restore
 
 COPY Backend/. .
